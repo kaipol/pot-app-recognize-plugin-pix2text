@@ -1,49 +1,34 @@
 async function recognize(base64, lang, options) {
-    const { config, utils } = options;
-    const { tauriFetch } = utils;
-    let { apikey, engine } = config;
+    const { utils } = options;
+    const { cacheDir } = utils; // Corrected typo: cacheDiR -> cacheDir
     base64 = `data:image/png;base64,${base64}`;
 
-    if (apikey === undefined || apikey.length === 0) {
-        throw "apikey not found";
-    }
-    if (engine === undefined || engine.length === 0) {
-        engine = "1";
+    //  Save the base64 image to a file.  This is crucial for the command line tool to work.
+    const fs = require('node:fs');
+    const imagePath = `${cacheDir}/pot_screenshot_cut.png`;
+    const buffer = Buffer.from(base64.split(',')[1], 'base64');
+
+    try {
+      fs.writeFileSync(imagePath, buffer);
+    } catch (err) {
+      console.error("Error writing image to file:", err);
+      return { status: 500, error: "Failed to write image to disk", detail: err.message };
     }
 
-    let res = await tauriFetch('https://api.ocr.space/parse/image', {
-        method: "POST",
-        header: {
-            apikey,
-            "content-type": "application/x-www-form-urlencoded"
-        },
-        body: {
-            type: "Form",
-            payload: {
-                base64Image: base64,
-                OCREngine: engine,
-                language: lang
-            }
-        }
-    })
 
-    if (res.ok) {
-        const { result } = res.data;
-        const { ErrorMessage, ParsedResults } = result;
-        if (ErrorMessage) {
-            throw ErrorMessage;
-        }
-        if (ParsedResults) {
-            let target = "";
-            for (let i in ParsedResults) {
-                const { ParsedText } = i;
-                target += ParsedText;
+    const command = `p2t predict -i ${imagePath} -d 'cuda'`;
+
+    return new Promise((resolve, reject) => {
+        exec(command, (error, stdout, stderr) => {
+            if (error) {
+                //console.error(`exec error: ${error}`);  //Comment out for production.  Only use in development for debugging.
+                resolve({ status: 500, error: "Command execution failed", detail: error.message, stderr }); // Return stderr for more context
+            } else if (stderr) {
+                //console.error(`stderr: ${stderr}`); //Comment out for production. Only use in development for debugging.
+                resolve({ status: 400, error: "Command returned an error", detail: stderr }); //Handle stderr even if no error code returned from exec.
+            } else {
+                resolve({ status: 200, result: stdout.trim() }); // trim removes leading/trailing whitespace
             }
-            return target;
-        } else {
-            throw JSON.stringify(result);
-        }
-    } else {
-        throw JSON.stringify(res);
-    }
+        });
+    });
 }
