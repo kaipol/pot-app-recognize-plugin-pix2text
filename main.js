@@ -1,3 +1,5 @@
+const { exec } = require('child_process');
+
 async function recognize(base64, lang, options) {
     const { utils } = options;
     const { cacheDir } = utils; // Corrected typo: cacheDiR -> cacheDir
