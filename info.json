@@ -4,6 +4,7 @@
   "icon": "icon.png",
   "display": "Pix2Text",
   "homepage": "https://github.com/kaipol/pot-app-recognize-plugin-pix2text",
+  "needs": [],
   "language": {
     "auto": "eng",
     "zh_cn": "chs",
