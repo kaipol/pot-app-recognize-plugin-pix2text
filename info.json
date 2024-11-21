@@ -1,18 +1,9 @@
 {
-  "id": "plugin.com.pot-app.ocrspace",
+  "id": "plugin.com.pot-app.pix2text",
   "plugin_type": "recognize",
   "icon": "icon.png",
-  "display": "OCR Space",
-  "homepage": "https://github.com/pot-app/pot-app-recognize-plugin-template",
-  "needs": [
-    {
-      "key": "engine",
-      "display": "Engine",
-      "type": "select",
-      "options": { "1": "Engine 1", "2": "Engine 2", "3": "Engine 3" }
-    },
-    { "key": "apikey", "display": "Api Key", "type": "input" }
-  ],
+  "display": "Pix2Text",
+  "homepage": "https://github.com/kaipol/pot-app-recognize-plugin-pix2text",
   "language": {
     "auto": "eng",
     "zh_cn": "chs",
