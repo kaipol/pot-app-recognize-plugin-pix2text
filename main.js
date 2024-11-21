@@ -1,23 +1,9 @@
 async function recognize(base64, lang, options) {
     const { utils } = options;
     const { run, cacheDir } = utils;
-    base64 = `data:image/png;base64,${base64}`;
 
     //  Save the base64 image to a file. This is crucial for the command line tool to work.
-    const fs = require("node:fs");
     const imagePath = `${cacheDir}/pot_screenshot_cut.png`;
-    const buffer = Buffer.from(base64.split(",")[1], "base64");
-
-    try {
-        fs.writeFileSync(imagePath, buffer);
-    } catch (err) {
-        console.error("Error writing image to file:", err);
-        return {
-            status: 500,
-            error: "Failed to write image to disk",
-            detail: err.message,
-        };
-    }
 
     const command = `p2t predict -i ${imagePath} -d 'cuda' -l ${lang}`;
 
