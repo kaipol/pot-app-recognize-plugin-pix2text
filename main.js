@@ -23,9 +23,9 @@ async function recognize(base64, lang, options) {
     
     if (result.status === 0) {
         let out = result.stdout;
-        out = out.split("Outs:\n");
-        if (out.length > 1) {
-            return out[1].trim();
+        let outsIndex = out.indexOf("Outs:\n");
+        if (outsIndex !== -1) {
+            return out.substring(outsIndex + 6).trim();
         } else {
             throw Error("Output does not contain 'Outs:\\n'");
         }
