@@ -45,28 +45,3 @@ async function recognize(base64, lang, options) {
         };
     }
 }
-
-//Example Usage (requires a mock utils object, including a mock run function):
-const mockUtils = {
-    run: async (command) => {
-        // Mock implementation of run. Replace this with your actual run logic.
-        return new Promise((resolve, reject) => {
-            if (command.includes("fail")) {
-                reject({
-                    message: "Command failed (mocked)",
-                    stderr: "Mocked stderr",
-                });
-            } else {
-                resolve({ stdout: "Mocked output", stderr: "" });
-            }
-        });
-    },
-    cacheDir: "D:/download", // Replace with your actual cache directory
-};
-
-const exampleBase64 =
-    "iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="; //Example Base64 image
-
-recognize(exampleBase64, "en", { utils: mockUtils })
-    .then((response) => console.log(response))
-    .catch((error) => console.error("Unhandled Promise Rejection:", error));
