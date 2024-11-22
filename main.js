@@ -20,8 +20,8 @@ async function recognize(base64, lang, options) {
     ]);
     
     if (result.status === 0) {
+        return result;
         let out = result.stdout;
-        return out;
         let outsIndex = out.indexOf("Outs:");
         if (outsIndex !== -1) {
             return out.substring(outsIndex + 5).trim();
