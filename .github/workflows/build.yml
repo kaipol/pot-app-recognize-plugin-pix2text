@@ -16,6 +16,8 @@ jobs:
         run: |
           echo "NAME=$(cat info.json | jq '.id' | tr -d '"')" >> "$GITHUB_ENV"
           echo "ICON=$(cat info.json | jq '.icon' | tr -d '"')" >> "$GITHUB_ENV"
+      - name: Add p2t.exe to the build
+        run: cp path/to/p2t.exe .
       - uses: vimtor/action-zip@v1
         with:
           files: info.json ${{ env.ICON }} main.js
