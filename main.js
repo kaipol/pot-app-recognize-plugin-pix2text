@@ -1,8 +1,14 @@
 async function recognize(base64, lang, options) {
-    const { utils } = options;
+    const {config, utils } = options;
     const { run, cacheDir,pluginDir } = utils;
     let {device}=config;
-
+    
+    if (device == null) {
+        device = "cpu"; 
+    } else {
+        device = String(device);
+    }
+    
     let result = await run(`${pluginDir}/p2t.exe`, [
         "predict",
         "-i",
