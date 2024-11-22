@@ -2,7 +2,7 @@ async function recognize(base64, lang, options) {
     const { utils } = options;
     const { run, cacheDir } = utils;
 
-    const imagePath = `${cacheDir}/pot_screenshot_cut.png`;
+    const imagePath = `${cacheDir}\\pot_screenshot_cut.png`;
     const command = `p2t predict -i ${imagePath} -d 'cuda' -l ${lang}`;
 
     try {
