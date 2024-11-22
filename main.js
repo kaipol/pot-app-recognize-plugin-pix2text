@@ -23,11 +23,11 @@ async function recognize(base64, lang, options) {
     
     if (result.status === 0) {
         let out = result.stdout;
-        let outsIndex = out.indexOf("Outs:\n");
+        let outsIndex = out.indexOf("Outs:");
         if (outsIndex !== -1) {
-            return out.substring(outsIndex + 6).trim();
+            return out.substring(outsIndex + 5).trim();
         } else {
-            throw Error("Output does not contain 'Outs:\\n'");
+            throw Error("Output does not contain 'Outs:'");
         }
     } else {
         throw Error(result.stderr);
