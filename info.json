@@ -7,9 +7,9 @@
   "needs": [
     {
       "key": "device",
-      "display": "是否使用GPU",
+      "display": "是否使用GPU(cuda)",
       "type": "select",
-      "options": { "否": "cpu", "是": "GPU" }
+      "options": { "cpu": "否", "cuda": "是" }
     }
   ],
   "language": {
