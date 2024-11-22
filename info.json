@@ -10,7 +10,7 @@
       "display": "是否使用GPU",
       "type": "select",
       "options": { "否": "cpu", "是": "GPU" }
-    },
+    }
   ],
   "language": {
     "auto": "en",
