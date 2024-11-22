@@ -4,12 +4,19 @@
   "icon": "icon.png",
   "display": "Pix2Text",
   "homepage": "https://github.com/kaipol/pot-app-recognize-plugin-pix2text",
-  "needs": [],
+  "needs": [
+    {
+      "key": "device",
+      "display": "是否使用GPU",
+      "type": "select",
+      "options": { "否": "cpu", "是": "GPU" }
+    },
+  ],
   "language": {
-    "auto": "eng",
-    "zh_cn": "chs",
-    "zh_tw": "cht",
-    "en": "eng",
+    "auto": "en",
+    "zh_cn": "ch_sim",
+    "zh_tw": "ch_tra",
+    "en": "en",
     "ja": "jpn",
     "ko": "kor",
     "fr": "fre",
@@ -20,7 +27,7 @@
     "tr": "tur",
     "pt_pt": "por",
     "pt_br": "por",
-    "vi": "vie",
+    "vi": "vi",
     "th": "tai",
     "ar": "ara",
     "hi": "hin",
