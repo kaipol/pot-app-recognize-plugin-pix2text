@@ -3,7 +3,8 @@ async function recognize(base64, lang, options) {
     const { run, cacheDir,pluginDir } = utils;
     let {device}=config;
 
-    let result = await run(`${pluginDir}/p2t.exe predict`, [
+    let result = await run(`${pluginDir}/p2t.exe`, [
+        "predict",
         "-i",
         `${cacheDir}/pot_screenshot_cut.png`,
         "-l",
